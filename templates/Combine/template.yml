@@ -1,0 +1,42 @@
+formatter: swift
+options:
+  name: API # the name of the API
+  fixedWidthIntegers: false # whether to use types like Int32 and Int64
+  mutableModels: true # whether model properties are mutable
+  safeOptionalDecoding: false # set invalid optionals to nil instead of throwing
+  safeArrayDecoding: false # filter out invalid items in array instead of throwing
+  modelPrefix: null # applied to model classes and enums
+  modelSuffix: null # applied to model classes
+  modelType: class # can be struct or class
+  modelInheritance: true # must be false for struct modelType
+  modelProtocol: APIModel # the protocol all models conform to
+  modelNames: {} # override model type names
+  enumNames: {} # override enum type names
+  enumUndecodableCase: false # whether to add undecodable case to enums
+  typeAliases:
+    ID: UUID
+    DateTime: Date
+    File: Data
+  dependencies: []
+templateFiles:
+  - path: README.md
+  - path: Package.swift
+  - path: Sources/API.swift
+  - path: Sources/Coding.swift
+  - path: Sources/APIRequest.swift
+  - path: Sources/APIClient.swift
+  - path: Sources/APIService.swift
+  - path: Sources/APIClientError.swift
+  - path: Sources/APIResponse.swift
+  - path: Sources/APIResult.swift
+  - path: Sources/RequestBehaviour.swift
+  - path: Sources/AnyCodable.swift
+  - path: Sources/Enum.swift
+    context: enums
+    destination: "Sources/Enums/{{ enumName }}.swift"
+  - path: Sources/Model.swift
+    context: schemas
+    destination: "Sources/Models/{{ type }}.swift"
+  - path: Sources/Request.swift
+    context: operations
+    destination: "Sources/Requests{% if tag %}/{{ tag|upperCamelCase }}{% endif %}/{{ type }}.swift"

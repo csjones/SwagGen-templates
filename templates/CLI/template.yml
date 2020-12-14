@@ -1,0 +1,40 @@
+formatter: swift
+options:
+  name: CLI # the name of the API
+  commandImports: [ArgumentParser, BitriseAPI]
+  commandProtocol: ParsableCommand
+  requestBodyType: Arguments
+  requestModelFilters: [Param, Params]
+templateFiles:
+  # - path: README.md
+  # - path: Package.swift
+  # - path: Sources/API.swift
+  # - path: Sources/Coding.swift
+  # - path: Sources/APIRequest.swift
+  # - path: Sources/APIClient.swift
+  # - path: Sources/APIService.swift
+  # - path: Sources/APIClientError.swift
+  # - path: Sources/APIResponse.swift
+  # - path: Sources/APIResult.swift
+  # - path: Sources/RequestBehaviour.swift
+  # - path: Sources/AnyCodable.swift
+  # - path: Sources/Enum.swift
+  #   context: enums
+  #   destination: "Sources/Enums/{{ enumName }}.swift"
+  # - path: Sources/Model.swift
+  #   context: schemas
+  #   destination: "Sources/Models/{{ type }}.swift"
+  - path: Sources/OptionGroup.stencil
+    destination: "OptionGroup{{ options.requestBodyType }}.swift"
+  - path: Sources/AuthenticatedCommand.stencil
+    destination: "AuthenticatedCommand.swift"
+  - path: Sources/AuthenticationOptions.stencil
+    destination: "AuthenticationOptions.swift"
+  - path: Sources/RootCommand.swift
+    destination: "{{ options.name }}Command.swift"
+  - path: Sources/Command.swift
+    context: operationsByTag
+    destination: "Subcommands/{{ name|upperCamelCase }}/{{ name|upperCamelCase }}Command.swift"
+  - path: Sources/Subcommand.stencil
+    context: operations
+    destination: "Subcommands{% if tag %}/{{ tag|upperCamelCase }}{% endif %}/{{ type }}Command.swift"

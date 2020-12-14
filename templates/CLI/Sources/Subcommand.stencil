@@ -1,0 +1,13 @@
+{% extends "Templates/Subcommand.swift" %}
+
+{% block file_header %}{% include "Includes/FileHeader.stencil" %}{% endblock %}
+{% block command_imports %}{% include "Includes/CommandImports.stencil" %}{% endblock %}
+{% block struct_header %}{% include "Includes/StructHeader.stencil" %}{% endblock %}
+{% block struct_subcommand_name %}{% include "Includes/StructSubcommandName.stencil" %}{% endblock %}
+{% block struct_subcommand_protocol %}{% include "Includes/StructSubcommandProtocol.stencil" %}{% endblock %}
+{% block subcommand_name %}{% include "Includes/SubcommandName.stencil" %}{% endblock %}
+{% block command_abstract %}{% include "Includes/CommandAbstract.stencil" %}{% endblock %}
+{% block subcommand_properties %}{% include "Includes/SubcommandProperties.stencil" %}{% endblock %}
+{% block authentication_properties %}{% include "Includes/AuthenticationProperties.stencil" %}{% endblock %}
+{% block subcommand_request %}{% include "Includes/SubcommandRequest.stencil" %}{% endblock %}
+{% block subcommand_extension %}{% include "Includes/SubcommandExtension.stencil" %}{% endblock %}

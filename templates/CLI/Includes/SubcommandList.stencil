@@ -1,0 +1,3 @@
+{% for operation in operations %}
+{% filter indent:4 %}{{ operation.type }}Command.self{% ifnot forloop.last %},{% endif %}{% endfilter %}
+{% endfor %}

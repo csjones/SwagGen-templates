@@ -1,0 +1,3 @@
+{% for tag in tags %}
+{% filter indent:4 %}{{ tag|upperCamelCase }}Command.self{% ifnot forloop.last %},{% endif %}{% endfilter %}
+{% endfor %}

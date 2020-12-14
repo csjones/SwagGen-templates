@@ -1,0 +1,11 @@
+{% macro macro_option_group_properties properties %}
+{% for property in properties %}
+{% if property.raw.$ref %}{{ property }}{% endif %}
+{% if property.optional %}@Option{% else %}@Argument{% endif %} var {{ property.name }}: {{ property.optionalType }}
+{% endfor %}
+{% endmacro %}
+{% extends "Templates/OptionGroup.swift" %}
+
+{% block file_header %}{% include "Includes/FileHeader.stencil" %}{% endblock %}
+{% block command_imports %}{% include "Includes/CommandImports.stencil" %}{% endblock %}
+{% block request_data_parameters %}{% include "Includes/RequestDataParameters.stencil" %}{% endblock %}
