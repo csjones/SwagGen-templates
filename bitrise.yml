@@ -1,16 +1,37 @@
 ---
 format_version: '8'
-default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+default_step_lib_source: 'https://github.com/bitrise-io/bitrise-steplib.git'
 project_type: other
 trigger_map:
-- push_branch: "*"
+- push_branch: '*'
   workflow: primary
-- pull_request_source_branch: "*"
+- pull_request_source_branch: '*'
   workflow: primary
 workflows:
   primary:
     steps:
     - git-clone@4: {}
     - script@1:
-        title: Do anything with Script step
+        title: Install Homebrew taps
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails; debug log
+            set -ex
+
+            # Install brew taps
+            brew tap yonaskolb/SwagGen https://github.com/yonaskolb/SwagGen.git
+    - script@1:
+        deps:
+          brew:
+          - name: SwagGen
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails; debug log
+            set -ex
+
+            # write your script here
+            swaggen help
+        title: SwagGen
     - deploy-to-bitrise-io@1: {}
