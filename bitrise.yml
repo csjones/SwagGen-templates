@@ -33,14 +33,14 @@ workflows:
 
             set -ex
 
-
             # write your script here
 
-            git clone --recurse-submodules
-            https://github.com/csjones/bitrise-cli
+            git clone --recurse-submodules https://github.com/csjones/bitrise-cli
 
             ls -a
 
             swaggen generate bitrise-cli/openapi.json -d bitrise-cli/Sources/BitriseCLI -c all -t templates/CLI/template.yml -o "name:BitriseCLI" -o "commandProtocol:AuthenticatedCommand"
+
+            swift build --package-path bitrise-cli/
         title: SwagGen
     - deploy-to-bitrise-io@1: {}
