@@ -26,12 +26,19 @@ workflows:
           brew:
           - name: SwagGen
         inputs:
-        - content: |-
+        - content: >-
             #!/usr/bin/env bash
+
             # fail if any commands fails; debug log
+
             set -ex
 
+
             # write your script here
-            swaggen help
+
+            git clone --recurse-submodules
+            https://github.com/csjones/bitrise-cli
+
+            ls -a
         title: SwagGen
     - deploy-to-bitrise-io@1: {}
