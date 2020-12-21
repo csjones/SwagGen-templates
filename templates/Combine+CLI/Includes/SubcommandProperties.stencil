@@ -1,0 +1,4 @@
+{% for param in params %}
+{% if param.required %}@Argument{% else %}@Option{% endif %} var {{ param.name }}: {% if param.raw.schema.enum %}API.{{ tag|upperCamelCase }}.{{ type }}.{% endif %}{{ param.optionalType }}
+{% endfor %}
+{% if hasBody %}@Argument var {{ body.name }}: {{ body.type|replace:"Param","Argument" }}{% endif %}

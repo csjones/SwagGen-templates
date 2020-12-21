@@ -1,0 +1,3 @@
+{% for import in options.commandImports %}
+import {{ import }}
+{% endfor %}
