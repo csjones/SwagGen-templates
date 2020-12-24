@@ -1,3 +1,2 @@
-{% for import in options.commandImports %}
-import {{ import }}
-{% endfor %}
+import ArgumentParser
+import API

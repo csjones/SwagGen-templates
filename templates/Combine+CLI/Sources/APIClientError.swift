@@ -3,6 +3,7 @@
 import Foundation
 
 public enum APIClientError: Error {
+    case unexpectedStatusCode(statusCode: Int, data: Data)
     case decodingError(DecodingError)
     case requestCreationError(Error)
     case requestCreationFailure(String)
@@ -13,6 +14,7 @@ public enum APIClientError: Error {
 
     public var name:String {
         switch self {
+        case .unexpectedStatusCode: return "Unexpected status code"
         case .decodingError: return "Decoding error"
         case .validationError: return "Request validation failed"
         case .requestCreationError: return "Request creation failed"
@@ -28,6 +30,7 @@ extension APIClientError: CustomStringConvertible {
 
     public var description:String {
         switch self {
+        case .unexpectedStatusCode(let statusCode, _): return "\(name): \(statusCode)"
         case .decodingError(let error): return "\(name): \(error.localizedDescription)\n\(error)"
         case .validationError(let error): return "\(name): \(error.localizedDescription)"
         case .requestCreationError(let error): return "\(name): \(error.localizedDescription)"

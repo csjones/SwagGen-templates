@@ -1,6 +1,9 @@
 formatter: swift
 options:
-  name: API # the name of the API
+  name: Combo # the name of the API+CLI COMBO
+  cliName: CLI
+  apiName: API
+  requestBodyType: Arguments
   fixedWidthIntegers: false # whether to use types like Int32 and Int64
   mutableModels: true # whether model properties are mutable
   safeOptionalDecoding: false # set invalid optionals to nil instead of throwing
@@ -17,26 +20,71 @@ options:
     ID: UUID
     DateTime: Date
     File: Data
-  dependencies: []
+  dependencies:
+    - name: swift-argument-parser
+      github: apple/swift-argument-parser
+      version: 0.3.1
+  targets:
+    - name: ApplicationEntryPoint
+      dependencies:
+        - CLI
+    - name: CLI
+      dependencies:
+        - type: target
+          name: API
+        - type: product
+          name: ArgumentParser
+          package: swift-argument-parser
+    - name: API
+      dependencies: []
+      path: Sources/API
 templateFiles:
   - path: README.md
   - path: Package.swift
   - path: Sources/API.swift
+    destination: "Sources/API/API.swift"
   - path: Sources/Coding.swift
+    destination: "Sources/API/Coding.swift"
   - path: Sources/APIRequest.swift
+    destination: "Sources/API/APIRequest.swift"
   - path: Sources/APIClient.swift
+    destination: "Sources/API/APIClient.swift"
   - path: Sources/APIService.swift
+    destination: "Sources/API/APIService.swift"
   - path: Sources/APIClientError.swift
+    destination: "Sources/API/APIClientError.swift"
   - path: Sources/APIResponse.swift
+    destination: "Sources/API/APIResponse.swift"
   - path: Sources/APIResult.swift
+    destination: "Sources/API/APIResult.swift"
   - path: Sources/RequestBehaviour.swift
+    destination: "Sources/API/RequestBehaviour.swift"
   - path: Sources/AnyCodable.swift
+    destination: "Sources/API/AnyCodable.swift"
   - path: Sources/Enum.swift
     context: enums
-    destination: "Sources/Enums/{{ enumName }}.swift"
+    destination: "Sources/API/Enums/{{ enumName }}.swift"
   - path: Sources/Model.swift
     context: schemas
-    destination: "Sources/Models/{{ type }}.swift"
+    destination: "Sources/API/Models/{{ type }}.swift"
   - path: Sources/Request.swift
     context: operations
-    destination: "Sources/Requests{% if tag %}/{{ tag|upperCamelCase }}{% endif %}/{{ type }}.swift"
+    destination: "Sources/API/Requests{% if tag %}/{{ tag|upperCamelCase }}{% endif %}/{{ type }}.swift"
+  - path: Sources/Publisher.swift
+    destination: "Sources/API/Publisher.swift"
+  - path: Templates/EntryPoint.stencil
+    destination: "Sources/ApplicationEntryPoint/main.swift"
+  - path: Sources/OptionGroup.stencil
+    destination: "Sources/CLI/OptionGroup{{ options.requestBodyType }}.swift"
+  - path: Sources/AuthenticatedCommand.stencil  
+    destination: "Sources/CLI/AuthenticatedCommand.swift"
+  - path: Sources/AuthenticationOptions.stencil
+    destination: "Sources/CLI/AuthenticationOptions.swift"
+  - path: Sources/RootCommand.swift
+    destination: "Sources/CLI/{{ options.name }}Command.swift"
+  - path: Sources/Command.swift
+    context: operationsByTag
+    destination: "Sources/CLI/Subcommands/{{ name|upperCamelCase }}/{{ name|upperCamelCase }}Command.swift"
+  - path: Sources/Subcommand.stencil
+    context: operations
+    destination: "Sources/CLI/Subcommands{% if tag %}/{{ tag|upperCamelCase }}{% endif %}/{{ type }}Command.swift"
