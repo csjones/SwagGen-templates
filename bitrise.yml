@@ -35,7 +35,7 @@ workflows:
             git clone --recurse-submodules https://github.com/csjones/bitrise-cli
             ls -a
             rm -rf bitrise-cli/Sources
-            swaggen generate bitrise-cli/openapi.json -d bitrise-cli/Sources           -c none -t templates/Combine+CLI/template.yml -o "name:Bitrise" -o "cliName:BitriseCLI" -o "apiName:BitriseAPI"
+            swaggen generate bitrise-cli/openapi.json -d bitrise-cli -c none -t templates/Combine+CLI/template.yml -o "name:Bitrise" -o "cliName:BitriseCLI" -o "apiName:BitriseAPI"
             swift build --package-path bitrise-cli/
         title: SwagGen
     - deploy-to-bitrise-io@1: {}
