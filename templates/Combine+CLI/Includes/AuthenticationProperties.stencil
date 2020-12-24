@@ -1,0 +1,1 @@
+{% if securityRequirements.count > 0 %}@OptionGroup var auth: AuthOptions{% endif %}

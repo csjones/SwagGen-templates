@@ -4,7 +4,6 @@ options:
   commandImports: [ArgumentParser, BitriseAPI]
   commandProtocol: ParsableCommand
   requestBodyType: Arguments
-  requestModelFilters: [Param, Params]
 templateFiles:
   # - path: README.md
   # - path: Package.swift

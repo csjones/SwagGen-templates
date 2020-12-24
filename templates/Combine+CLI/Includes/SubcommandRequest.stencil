@@ -1,0 +1,1 @@
+{{ options.name }}.{{ tag|upperCamelCase }}.{{ type }}.Request({% for param in params %}{{ param.name }}: {{ param.name }}{% ifnot forloop.last %}, {% endif %}{% endfor %}{% if hasBody %}{% if params.count > 0 %}, {% endif %}body: body.data!{% endif %})

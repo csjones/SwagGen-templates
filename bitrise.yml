@@ -26,21 +26,16 @@ workflows:
           brew:
           - name: SwagGen
         inputs:
-        - content: >-
+        - content: |-
             #!/usr/bin/env bash
-
             # fail if any commands fails; debug log
-
             set -ex
 
             # write your script here
-
             git clone --recurse-submodules https://github.com/csjones/bitrise-cli
-
             ls -a
-
-            swaggen generate bitrise-cli/openapi.json -d bitrise-cli/Sources/BitriseCLI -c all -t templates/CLI/template.yml -o "name:BitriseCLI" -o "commandProtocol:AuthenticatedCommand"
-
+            rm -rf bitrise-cli/Sources
+            swaggen generate bitrise-cli/openapi.json -d bitrise-cli -c none -t templates/Combine+CLI/template.yml -o "name:Bitrise" -o "cliName:BitriseCLI" -o "apiName:BitriseAPI"
             swift build --package-path bitrise-cli/
         title: SwagGen
     - deploy-to-bitrise-io@1: {}

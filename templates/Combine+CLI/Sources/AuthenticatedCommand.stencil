@@ -1,0 +1,5 @@
+{% extends "Templates/AuthenticatedCommand.swift" %}
+
+{% block file_header %}{% include "Includes/FileHeader.stencil" %}{% endblock %}
+{% block command_imports %}{% include "Includes/CommandImports.stencil" %}{% endblock %}
+{% block authentication_headers %}{% include "Includes/AuthenticationHeaders.stencil" %}{% endblock %}

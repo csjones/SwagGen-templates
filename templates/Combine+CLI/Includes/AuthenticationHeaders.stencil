@@ -1,0 +1,6 @@
+{% for definition in securityDefinitions %}
+if let {{ definition.name|lowerCamelCase }} = auth.{{ definition.name|lowerCamelCase }} {
+    APIClient.default.defaultHeaders["{{ definition.raw.name }}"] = {{ definition.name|lowerCamelCase }}
+}
+
+{% endfor %}

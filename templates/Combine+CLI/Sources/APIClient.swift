@@ -14,7 +14,7 @@ internal struct ErrorResponse<T: APIResponseValue>: Error {
 /// Manages and sends APIRequests
 public class APIClient {
 
-    public static var `default` = APIClient(baseURL: MastodonC2S.Server.main)
+    public static var `default` = APIClient(baseURL: {{ options.name }}.Server.main)
 
     /// A list of RequestBehaviours that can be used to monitor and alter all requests
     public var behaviours: [RequestBehaviour] = []
